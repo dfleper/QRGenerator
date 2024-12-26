@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Código QR</title>
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #qrcode {
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Generador de Código QR</h1>
+  <p>Escribe un texto o URL y genera tu código QR:</p>
+  <input type="text" id="text-input" placeholder="Escribe algo aquí" style="padding: 10px; width: 80%; max-width: 300px;">
+  <button id="generate-btn" style="padding: 10px 20px; margin-top: 10px;">Generar QR</button>
+  <div id="qrcode"></div>
+
+  <script>
+    // Referencias a elementos HTML
+    const input = document.getElementById('text-input');
+    const button = document.getElementById('generate-btn');
+    const qrCodeContainer = document.getElementById('qrcode');
+
+    // Crear función para generar QR
+    button.addEventListener('click', () => {
+      const text = input.value;
+
+      // Limpiar contenido previo del contenedor
+      qrCodeContainer.innerHTML = "";
+
+      // Verificar que el texto no esté vacío
+      if (text.trim() === "") {
+        alert("Por favor, ingresa un texto o URL para generar el código QR.");
+        return;
+      }
+
+      // Crear instancia de QRCode y generar el QR
+      new QRCode(qrCodeContainer, {
+        text: text,
+        width: 128,
+        height: 128, 
+        colorDark: "#000000", // Color del código QR
+        colorLight: "#ffffff", // Color de fondo
+        correctLevel: QRCode.CorrectLevel.H // Nivel de corrección de errores
+      });
+    });
+  </script>
+</body>
+</html>
